@@ -3,6 +3,7 @@
 <template>
   <div>
     <h1>我是app</h1>
+    <el-button type="primary">Primary</el-button>
   </div>
   <HelloWorld msg="Vite + Vue" />
 </template>
