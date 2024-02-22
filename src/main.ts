@@ -15,6 +15,8 @@ import 'virtual:svg-icons-register';
 import globalComponent from '@/components';
 // 引入的全局样式
 import '@/styles/index.scss';
+// 引入路由
+import router from './router';
 
 const app = createApp(App);
 // 安装UI插件
@@ -29,5 +31,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 console.log('环境变量', import.meta.env);
 // 安装自定义插件
 app.use(globalComponent);
+// 注册路由
+app.use(router);
 // 挂载到id=app上
 app.mount('#app');
