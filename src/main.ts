@@ -13,6 +13,8 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import 'virtual:svg-icons-register'
 // 引入自定义插件对象：注册整个项目全局组件
 import globalComponent from '@/components'
+// 引入的全局样式
+import '@/styles/index.scss'
 
 const app = createApp(App)
 // 安装UI插件
