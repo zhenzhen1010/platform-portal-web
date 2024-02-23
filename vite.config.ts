@@ -5,6 +5,8 @@ import path from 'path';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 // 引入mock插件提供方法
 import { viteMockServe } from 'vite-plugin-mock';
+// setup插件
+import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
@@ -18,6 +20,7 @@ export default defineConfig(({ command }) => {
       viteMockServe({
         localEnabled: command === 'serve', // 开发阶段使用mock
       }),
+      VueSetupExtend(),
     ],
     resolve: {
       alias: {
