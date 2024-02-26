@@ -4,16 +4,21 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_from">
+        <el-form
+          class="login_from"
+          :model="loginFrom"
+          :rules="rules"
+          ref="loginFormRef"
+        >
           <h1>Hello</h1>
           <h2>欢迎进入系统</h2>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
               :prefix-icon="User"
               v-model="loginFrom.username"
             ></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               type="password"
               show-password
@@ -52,6 +57,9 @@ import { getTime } from '@/utils/titme.ts';
 
 let userStore = useUserStore();
 
+// 获取表单元素
+let loginFormRef = ref();
+
 // 获取路由器
 let $router = useRouter();
 
@@ -65,8 +73,34 @@ let loginFrom = reactive({
 });
 // let username = ref('');
 // let password = ref('');
-
+// 自定义校验密码
+/**
+ * @rule 校验规则对象
+ * @value 表单元素文本内容
+ * @callback 回调函数
+ */
+const validatePass = (rule: any, value: any, callback: any) => {
+  console.log(rule);
+  if (value === '') {
+    callback(new Error('请输入密码！'));
+  } else {
+    if (value.length < 5) {
+      callback(new Error('密码不少于6位！'));
+    }
+    callback();
+  }
+};
+// 定义表单校验规则
+const rules = {
+  username: [{ required: true, message: '账号必填', trigger: 'change' }],
+  // password: [{ required: true, message: '密码必填', trigger: 'blur' }],
+  // 自定义校验规则
+  password: [{ required: true, validator: validatePass, trigger: 'blur' }],
+};
+// 登陆按钮回调
 async function login() {
+  // 菜单相关校验通过再发请求
+  await loginFormRef.value.validate();
   console.log('点击登录', loginFrom);
   // 点击登录开启按钮加载状态
   loading.value = true;
