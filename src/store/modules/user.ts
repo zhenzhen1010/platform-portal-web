@@ -5,12 +5,16 @@ import { reqLogin } from '@/api/user';
 import type { loginForm, loginResponseData } from '@/api/user/type';
 import type { UserState } from './types/type';
 import { SET_TOKEN, GET_TOKEN } from '@/utils/token';
+// 引入路由
+import { constRoute } from '@/router/routes';
 
+// 创建用户仓库
 const useUserStore = defineStore('User', {
   // 存储数据
   state(): UserState {
     return {
       token: GET_TOKEN(),
+      menuRoutes: constRoute, // 仓库存储生产菜单需要数组
     };
   },
   // 异步|逻辑
